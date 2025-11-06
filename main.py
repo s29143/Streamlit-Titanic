@@ -1,6 +1,7 @@
 import streamlit as st
 import pickle
 from datetime import datetime
+import numpy as np
 
 
 startTime = datetime.now()
@@ -15,10 +16,10 @@ embarked_d = {0: "Cherbourg", 1: "Queenstown", 2: "Southampton"}
 def main():
     st.set_page_config(page_title='Czy przeżyłbyś katastrofę?')
     overview = st.container()
-    left, right = st.container(2)
+    left, right = st.columns(2)
     prediction = st.container()
 
-    st.image('https://media1.popsugar-assets.com/files/thumbor/7CwCuGAKxTrQ4wPyOBpKjSsd1JI/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2017/04/19/743/n/41542884/5429b59c8e78fbc4_MCDTITA_FE014_H_1_.JPG%22')
+    st.image('https://media1.popsugar-assets.com/files/thumbor/7CwCuGAKxTrQ4wPyOBpKjSsd1JI/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2017/04/19/743/n/41542884/5429b59c8e78fbc4_MCDTITA_FE014_H_1_.JPG')
     with overview:
         st.title('Czy przeżyłbyś katastrofę?')
     with left:
@@ -30,7 +31,7 @@ def main():
         sibsp_slider = st.slider('# Liczba rodzeństwa i/lub partnera', min_value=0, max_value=8)
         parch_slider = st.slider('# Liczba rodziców i/lub dzieci', min_value=0, max_value=6)
         fare_slider = st.slider('Cena biletu', min_value=0, max_value=500, step=10)
-    data = []
+    data = np.array([[pclass_radio, age_slider, sibsp_slider, parch_slider, fare_slider, embarked_radio, sex_radio==1]], dtype=float)
     survival = model.predict(data)
     s_confidence = model.predict_proba(data)
 
